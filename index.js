@@ -4,7 +4,7 @@ const hbs = require("express-handlebars");
 const carsService = require("./services/cars")
 
 const { about } = require("./controllers/about.js");
-const { create } = require("./controllers/create.js");
+const  create  = require("./controllers/create.js");
 const { details } = require("./controllers/details.js");
 const{home} = require("./controllers/home.js");
 const { notFound } = require("./controllers/notFound.js");
@@ -22,7 +22,8 @@ app.use(carsService())
 app.get('/',home)
 app.get('/about',about)
 app.get('/details/:id',details)
-app.get('/create',create)
+app.get('/create',create.get)
+app.post('/create',create.post)
 app.all('*',notFound)
 
 app.listen(3001,()=>console.log("Server started"));
