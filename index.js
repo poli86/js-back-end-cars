@@ -3,11 +3,13 @@ const hbs = require("express-handlebars");
 
 const carsService = require("./services/cars")
 
-const { about } = require("./controllers/about.js");
-const  create  = require("./controllers/create.js");
-const { details } = require("./controllers/details.js");
-const{home} = require("./controllers/home.js");
-const { notFound } = require("./controllers/notFound.js");
+const { about } = require("./controllers/about");
+const  create  = require("./controllers/create");
+const { details } = require("./controllers/details");
+const{home} = require("./controllers/home");
+const { notFound } = require("./controllers/notFound");
+const  deleteCar = require("./controllers/delete");
+const  editCar = require("./controllers/edit");
 
 
 const app= express();
@@ -24,6 +26,9 @@ app.get('/about',about)
 app.get('/details/:id',details)
 app.get('/create',create.get)
 app.post('/create',create.post)
+app.route("/delete/:id").get(deleteCar.get).post(deleteCar.post)
+app.route("/edit/:id").get(editCar.get).post(editCar.post)
+
 app.all('*',notFound)
 
 app.listen(3001,()=>console.log("Server started"));

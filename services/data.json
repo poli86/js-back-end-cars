@@ -9,12 +9,6 @@
     "name": "toyota ",
     "description": "lorem ipsum lorem ipsum",
     "imageUrl": "11642697845129757_i2.jpg",
-    "price": "33333"
-  },
-  "dfd6d88e-095d": {
-    "name": "Subaru ",
-    "description": "fQRGF",
-    "imageUrl": "11642784212322196_2Z.jpg",
-    "price": "4444444"
+    "price": 3000
   }
 }
