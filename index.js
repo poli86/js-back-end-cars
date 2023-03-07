@@ -1,6 +1,8 @@
 const express = require("express");
 const hbs = require("express-handlebars");
 
+const initDB = require("./models")
+
 const carsService = require("./services/cars")
 
 const { about } = require("./controllers/about");
@@ -11,24 +13,29 @@ const { notFound } = require("./controllers/notFound");
 const  deleteCar = require("./controllers/delete");
 const  editCar = require("./controllers/edit");
 
+start()
 
-const app= express();
+async function start(){
+    await initDB()
 
-app.engine('hbs',hbs.create({extname: '.hbs'}).engine);
-app.set('view engine','hbs')
+    const app= express();
 
-app.use(express.urlencoded({extended: true}));
-app.use('/static', express.static('static'))
-app.use(carsService())
+    app.engine('hbs',hbs.create({extname: '.hbs'}).engine);
+    app.set('view engine','hbs')
 
-app.get('/',home)
-app.get('/about',about)
-app.get('/details/:id',details)
-app.get('/create',create.get)
-app.post('/create',create.post)
-app.route("/delete/:id").get(deleteCar.get).post(deleteCar.post)
-app.route("/edit/:id").get(editCar.get).post(editCar.post)
+    app.use(express.urlencoded({extended: true}));
+    app.use('/static', express.static('static'))
+    app.use(carsService())
 
-app.all('*',notFound)
+    app.get('/',home)
+    app.get('/about',about)
+    app.get('/details/:id',details)
+    app.get('/create',create.get)
+    app.post('/create',create.post)
+    app.route("/delete/:id").get(deleteCar.get).post(deleteCar.post)
+    app.route("/edit/:id").get(editCar.get).post(editCar.post)
 
-app.listen(3001,()=>console.log("Server started"));
+    app.all('*',notFound)
+
+    app.listen(3001,()=>console.log("Server started"));
+}
