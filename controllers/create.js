@@ -8,8 +8,16 @@ module.exports ={
         description: req.body.description,
         imageUrl: req.body.imageUrl,
         price: req.body.price
+      };
+
+      try {
+        await req.storage.createCar(car)
+        res.redirect("/")
+       
+      } catch (err) {
+        console.log('Error creating record');
+        res.redirect("/create")
       }
-      await req.storage.createCar(car)
-      res.redirect("/")
+     
     }
 }
